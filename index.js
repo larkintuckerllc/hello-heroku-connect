@@ -11,16 +11,22 @@ const pg = knex({
 });
 
 const server = http.createServer(async (req, res) => {
-  const external_contact_id__c = uuidv1().replace(/-/g, '');
-  await pg('contacts').insert({
-    first: 'John',
-    last: 'Doe',
-    title: 'New',
-    external_contact_id__c,
-  });
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
+  const external_contact_id__c = uuidv1().replace(/-/g, '');
+  try {
+    await pg('contact').insert({
+      first: 'John',
+      last: 'Doe',
+      title: 'New',
+      external_contact_id__c,
+    });
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('SUCCESS\n');
+  } catch (err) {
+    res.end('ERROR\n');
+  }
 });
 server.listen(PORT, () => {
   console.log(`Server running on ${PORT}/`);
