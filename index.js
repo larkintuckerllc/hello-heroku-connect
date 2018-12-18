@@ -26,6 +26,11 @@ const server = http.createServer(async (req, res) => {
     await pg('contact')
       .where({ external_contact_id__c })
       .update({ title: 'Requested' });
+    await delay(3000);
+    const results = await pg('contact')
+      .where({ external_contact_id__c })
+      .select(title);
+    console.log(results);
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     res.end('SUCCESS\n');
