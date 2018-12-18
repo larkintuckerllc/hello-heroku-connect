@@ -16,8 +16,8 @@ const server = http.createServer(async (req, res) => {
   const external_contact_id__c = uuidv1().replace(/-/g, '');
   try {
     await pg('contact').insert({
-      first: 'John',
-      last: 'Doe',
+      firstname: 'John',
+      lastname: 'Doe',
       title: 'New',
       external_contact_id__c,
     });
