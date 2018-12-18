@@ -31,9 +31,10 @@ const server = http.createServer(async (req, res) => {
       .where({ external_contact_id__c })
       .select('title');
     console.log(results);
+    const value = results[0].title;
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
-    res.end('SUCCESS\n');
+    res.end(`${value}\n`);
   } catch (err) {
     console.log(err);
     res.end('ERROR\n');
