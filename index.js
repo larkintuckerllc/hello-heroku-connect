@@ -11,6 +11,7 @@ const pg = knex({
 });
 
 const server = http.createServer(async (req, res) => {
+  console.log('START');
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   const external_contact_id__c = uuidv1().replace(/-/g, '');
