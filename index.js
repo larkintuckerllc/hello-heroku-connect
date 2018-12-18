@@ -3,13 +3,12 @@ const knex = require('knex');
 const uuidv1 = require('uuid/v1');
 
 const PORT = process.env.PORT || 5000;
-
+const delay = (period) => new Promise(resolve => setTimeout(() => resolve(), period));
 const pg = knex({
   client: 'pg',
   connection: process.env.DATABASE_URL,
   searchPath: [ 'salesforce', 'public'],
 });
-
 const server = http.createServer(async (req, res) => {
   console.log('START');
   res.statusCode = 200;
@@ -23,7 +22,7 @@ const server = http.createServer(async (req, res) => {
         title: 'New',
         external_contact_id__c,
       });
-    // TODO: MAYBE DELAY
+    await delay(500);
     await pg('contact')
       .where({ external_contact_id__c })
       .update({ title: 'Requested' });
