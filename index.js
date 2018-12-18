@@ -16,12 +16,17 @@ const server = http.createServer(async (req, res) => {
   res.setHeader('Content-Type', 'text/plain');
   const external_contact_id__c = uuidv1().replace(/-/g, '');
   try {
-    await pg('contact').insert({
-      firstname: 'John',
-      lastname: 'Doe',
-      title: 'New',
-      external_contact_id__c,
-    });
+    await pg('contact')
+      .insert({
+        firstname: 'John',
+        lastname: 'Doe',
+        title: 'New',
+        external_contact_id__c,
+      });
+    // TODO: MAYBE DELAY
+    await pg('contact')
+      .where({ external_contact_id__c })
+      .update({ title: 'Requested' });
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
     res.end('SUCCESS\n');
