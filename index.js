@@ -22,7 +22,7 @@ const server = http.createServer(async (req, res) => {
         title: 'New',
         external_contact_id__c,
       });
-    await delay(500);
+    await delay(1000);
     await pg('contact')
       .where({ external_contact_id__c })
       .update({ title: 'Requested' });
