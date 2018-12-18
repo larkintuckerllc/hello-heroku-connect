@@ -25,6 +25,7 @@ const server = http.createServer(async (req, res) => {
     res.setHeader('Content-Type', 'text/plain');
     res.end('SUCCESS\n');
   } catch (err) {
+    console.log(err);
     res.end('ERROR\n');
   }
 });
